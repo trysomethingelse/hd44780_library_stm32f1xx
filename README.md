@@ -34,7 +34,7 @@ Initialize lcd by :
 ```
 lcd_init();
 ```
-###Functions:
+### Functions:
 Print letter:
 ```
 lcd_print_letter('a');
