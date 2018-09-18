@@ -27,7 +27,7 @@ In default configuration (tested) - hd44780.h:
 
 Add header file to main.c with:
 ```
-#include "hdhd44780.h"
+#include "hd44780.h"
 ```
 
 Initialize lcd by :
