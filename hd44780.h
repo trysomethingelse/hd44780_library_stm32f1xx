@@ -1,6 +1,8 @@
 #ifndef HD44780_H
 
 #include "stm32f1xx_hal.h"
+#include "stdio.h"
+#include "string.h"
 
 //all lcd control ports must be in te same group eg. GPIOB
 #define LCD_CONTROL_PORT GPIOB
@@ -46,6 +48,8 @@
 #define SHIFT_LEFT 0x10
 #define SHIFT_RIGHT 0x14
 
+#define SET_SECOND_LINE 0xC0
+
 #define MSB 7
 #define LSB 3
 
@@ -62,10 +66,11 @@ void lcd_clock(void);
 void lcd_init(void);
 void lcd_write_nibble(uint8_t, uint8_t, uint8_t);
 uint8_t lcd_write(uint8_t);
-uint8_t lcd_write_letter(uint8_t);
+uint8_t lcd_print_letter(uint8_t);
 uint8_t get_bit(uint8_t, uint8_t);
-uint8_t lcd_write_word(char []);
-
+uint8_t lcd_print(char []);
+uint8_t lcd_print_int(int);
+uint8_t lcd_print_double(double number,uint8_t precision);
 
 #endif  // HD44780_H
 

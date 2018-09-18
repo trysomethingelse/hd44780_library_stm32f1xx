@@ -37,16 +37,43 @@ uint8_t busy_flag_check()
 	return out;
 }
 
+
+uint8_t lcd_print(char word[])
+{
+	for(int i = 0; word[i] != 0; i++)
+	{
+		if(lcd_print_letter(word[i]) == COMMAND_BUSY_ERROR)return COMMAND_BUSY_ERROR;
+	}
+	return COMMAND_SUCCESS;
+}
+uint8_t lcd_print_int(int number)
+{
+	char word[sizeof(int)];
+	sprintf(word,"%d",number);
+	return lcd_print(word);
+}
+
+uint8_t lcd_print_double(double number,uint8_t precision)
+{
+	char word[sizeof(int)];
+	gcvt(number,precision, word);
+	return lcd_print(word);
+}
+uint8_t lcd_print_letter(uint8_t letter)
+{
+
+	if (busy_flag_check() == BUSY) return COMMAND_BUSY_ERROR;
+	lcd_write_nibble(letter,MSB, 1);
+	lcd_write_nibble(letter,LSB, 1);
+	return COMMAND_SUCCESS;
+}
+
 void lcd_init()
 {
 	lcd_write_nibble(SET_4BIT_OPERATION,MSB,0);
 	lcd_write(TWO_LINES_4BIT);
 	lcd_write(DISPLAY_ON_OFF);
 	lcd_write(ENTRY_MODE_INCREMENT | DISPLAY_SHIFT_OFF);
-}
-uint8_t get_bit(uint8_t command, uint8_t no)
-{
-	return ((command >> no) & 1);
 }
 void lcd_write_nibble(uint8_t command, uint8_t start_bit, uint8_t rs)
 {
@@ -83,15 +110,10 @@ uint8_t lcd_write(uint8_t command)
 	lcd_write_nibble(command,LSB, 0);
 	return COMMAND_SUCCESS;
 }
-uint8_t lcd_write_letter(uint8_t letter)
+uint8_t get_bit(uint8_t command, uint8_t no)
 {
-
-	if (busy_flag_check() == BUSY) return COMMAND_BUSY_ERROR;
-	lcd_write_nibble(letter,MSB, 1);
-	lcd_write_nibble(letter,LSB, 1);
-	return COMMAND_SUCCESS;
+	return ((command >> no) & 1);
 }
-int counter = 0;
 void lcd_clock()
 {
 	HAL_GPIO_WritePin(LCD_CONTROL_PORT, LCD_CLOCK,GPIO_PIN_SET);
@@ -100,11 +122,4 @@ void lcd_clock()
 	HAL_Delay(1);
 
 }
-uint8_t lcd_write_word(char word[])
-{
-	for(int i = 0; word[i] != 0; i++)
-	{
-		if(lcd_write_letter(word[i]) == COMMAND_BUSY_ERROR)return COMMAND_BUSY_ERROR;
-	}
-	return COMMAND_SUCCESS;
-}
+
