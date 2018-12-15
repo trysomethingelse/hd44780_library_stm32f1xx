@@ -70,10 +70,13 @@ uint8_t lcd_print_letter(uint8_t letter)
 
 void lcd_init()
 {
-	lcd_write_nibble(SET_4BIT_OPERATION,MSB,0);
-	lcd_write(TWO_LINES_4BIT);
-	lcd_write(DISPLAY_ON_OFF);
-	lcd_write(ENTRY_MODE_INCREMENT | DISPLAY_SHIFT_OFF);
+	if (busy_flag_check() != BUSY)
+	{
+		lcd_write_nibble(SET_4BIT_OPERATION,MSB,0);
+		lcd_write(TWO_LINES_4BIT);
+		lcd_write(DISPLAY_ON_OFF);
+		lcd_write(ENTRY_MODE_INCREMENT | DISPLAY_SHIFT_OFF);
+	}
 }
 void lcd_write_nibble(uint8_t command, uint8_t start_bit, uint8_t rs)
 {
