@@ -21,7 +21,6 @@ uint8_t busy_flag_check()
 			out = NOT_BUSY;
 			break;
 		}
-		HAL_Delay(1);
 	}
 
 	//set data lines as output
