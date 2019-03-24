@@ -1,6 +1,6 @@
 # hd44780_library_stm32f1xx
 Control HD44780 lcd by STM32F103C8 aka blue pill. 
-## Desriprion
+## Description
 The files have been created and tested in Atolic TrueStudio. Tested on blue pill with 1602A LCD display. For this moment works only in 4bit mode.
 ### How to use:
 Create project with STM32CubeMX. Data ports (DB7,DB6,DB5,DB4) must be on same group for eg. GPIOA. The same thing applies to control ports
