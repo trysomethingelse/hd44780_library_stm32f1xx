@@ -54,11 +54,9 @@
 #define LSB 3
 
 /**
-  * @brief Check busy flag
-  * @note
-
-
-  * @retval eror
+  * @brief Checks if lcd is in busy state
+  * @retval NOT_BUSY 
+			BUSY
   */
 uint8_t busy_flag_check(void);
 
@@ -67,11 +65,17 @@ void lcd_init(void);
 void lcd_write_nibble(uint8_t, uint8_t, uint8_t);
 uint8_t lcd_write(uint8_t);
 uint8_t lcd_print_letter(uint8_t);
-uint8_t get_bit(uint8_t, uint8_t);
 uint8_t lcd_print(char []);
 uint8_t lcd_print_int(int);
 uint8_t lcd_print_double(double number,uint8_t precision);
 
+/*
+ *  @brief Executes dummy test on lcd GPIOs.
+ *  @note Test consists of setting GPIOs in default state in
+ *  (low, high) pattern and next toggling pins. Test can be run wihtout lcd_init().
+ *  Warning! Test runs in infinite loop.
+ *  @param delay_ms Delay between state changes of GPIOs
+ */
+void lcd_dummy_test(uint16_t delay_ms);
+
 #endif  // HD44780_H
-
-
