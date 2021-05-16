@@ -41,7 +41,7 @@ lcd_print_letter('a');
 ```
 Print word:
 ```
-lcd_print_word("Hello world!");
+lcd_print("Hello world!");
 ```
 Print integer:
 ```
