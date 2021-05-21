@@ -1,24 +1,10 @@
 #ifndef HD44780_H
 
+#include "hd44780_config.h"
+#include "main.h"
 #include "stm32f1xx_hal.h"
 #include "stdio.h"
 #include "string.h"
-
-//all lcd control ports must be in te same group eg. GPIOB
-#define LCD_CONTROL_PORT GPIOB
-
-#define LCD_RS GPIO_PIN_12
-#define LCD_RW GPIO_PIN_13
-#define LCD_CLOCK GPIO_PIN_14
-
-//all lcd data ports must be in te same group eg. GPIOA
-#define LCD_DATA_PORT GPIOA
-
-#define LCD_4 GPIO_PIN_8
-#define LCD_5 GPIO_PIN_9
-#define LCD_6 GPIO_PIN_10
-#define LCD_7 GPIO_PIN_11
-
 
 #define LCD_4567 LCD_4|LCD_5|LCD_6|LCD_7
 #define BUSY_FLAG LCD_7
@@ -49,25 +35,57 @@
 #define SHIFT_RIGHT 0x14
 
 #define SET_SECOND_LINE 0xC0
+#define INIT_TIMEOUT_MS	1000
 
 #define MSB 7
 #define LSB 3
 
-/**
-  * @brief Checks if lcd is in busy state
-  * @retval NOT_BUSY 
-			BUSY
-  */
-uint8_t busy_flag_check(void);
-
-void lcd_clock(void);
+/*
+ *  @brief Inits lcd to proper state, sets 4 bit mode, clears display
+ *  @param command
+ */
 void lcd_init(void);
-void lcd_write_nibble(uint8_t, uint8_t, uint8_t);
-uint8_t lcd_write(uint8_t);
-uint8_t lcd_print_letter(uint8_t);
-uint8_t lcd_print(char []);
-uint8_t lcd_print_int(int);
-uint8_t lcd_print_double(double number,uint8_t precision);
+
+/*
+ *  @brief Sends command to lcd
+ *  @param command
+ *	@retval COMMAND_SUCCESS
+ *		    COMMAND_BUSY_ERROR
+ */
+uint8_t lcd_write(uint8_t command);
+
+/*
+ *  @brief Prints one letter on lcd
+ *  @param letter
+ *	@retval COMMAND_SUCCESS
+ *		    COMMAND_BUSY_ERROR
+ */
+uint8_t lcd_print_letter(uint8_t letter);
+
+/*
+ *  @brief Prints array of characters on lcd
+ *  @param word pointer to beggining of array characters
+ *	@retval COMMAND_SUCCESS
+ *		    COMMAND_BUSY_ERROR
+ */
+uint8_t lcd_print(char word[]);
+
+/*
+ *  @brief Prints integer number on lcd
+ *  @param number Integer number to print
+ *	@retval COMMAND_SUCCESS
+ *  		COMMAND_BUSY_ERROR
+ */
+uint8_t lcd_print_int(int number);
+
+/*
+ *  @brief Prints floating point number on lcd
+ *  @param number Floating point number to print
+ *	@param precision Number of digits after point
+ *	@retval COMMAND_SUCCESS
+ *			COMMAND_BUSY_ERROR
+ */
+uint8_t lcd_print_double(double number, uint8_t precision);
 
 /*
  *  @brief Executes dummy test on lcd GPIOs.
@@ -79,3 +97,5 @@ uint8_t lcd_print_double(double number,uint8_t precision);
 void lcd_dummy_test(uint16_t delay_ms);
 
 #endif  // HD44780_H
+
+
