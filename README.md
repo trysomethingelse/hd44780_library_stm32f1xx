@@ -1,29 +1,14 @@
 # hd44780_library_stm32f1xx
-Control HD44780 lcd by STM32F103C8 aka blue pill. 
+Control HD44780 lcd by STM32F1xx, should work also for other uC.
 ## Description
 The files have been created and tested in Atolic TrueStudio. Tested on blue pill with 1602A LCD display. For this moment works only in 4bit mode.
 ### How to use:
-Create project with STM32CubeMX. Data ports (DB7,DB6,DB5,DB4) must be on same group for eg. GPIOA. The same thing applies to control ports
+Create project with STM32CubeMX. Data ports (DB7,DB6,DB5,DB4) can be configured for any GPIO port. Control ports need to be in one group
 (RW, RS, E(CLOCK)) for eg. group GPIOB. Set all as output. Modify hd44780_config.h respectively to your configuration.
 
-Open project in IDE. In Atolic Studio just drag header file to Inc folder, and source file to Src folder.Next you should edit hd44780.h if yours configuration is diffrent than default.
+Open project in IDE. In Atolic Studio just drag header file to Inc folder, and source file to Src folder. Next you should edit hd44780_config.h if yours configuration is diffrent than default.
 
-In default configuration (tested) - hd44780_config.h:
-```
-#define LCD_CONTROL_PORT GPIOB
-
-#define LCD_RS GPIO_PIN_12
-#define LCD_RW GPIO_PIN_13
-#define LCD_CLOCK GPIO_PIN_14
-
-#define LCD_DATA_PORT GPIOA
-
-#define LCD_4 GPIO_PIN_8
-#define LCD_5 GPIO_PIN_9
-#define LCD_6 GPIO_PIN_10
-#define LCD_7 GPIO_PIN_11
-```
-
+LCD_SIGNAL_COOLDOWN_TIMEOUT should be changed for different value if driver doesn't work properly for you. Delay function is made based on CPU freqency. Tests were made with 72 MHz clock. 
 
 Add header file to main.c with:
 ```
