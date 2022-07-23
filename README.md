@@ -1,4 +1,4 @@
-# hd44780_library_stm32f1xx
+# HD44780 library for STM32
 Control HD44780 lcd by STM32F1xx, should work also for other uC.
 ## Description
 The files have been created and tested in Atolic TrueStudio. Tested on blue pill with 1602A LCD display. For this moment works only in 4bit mode.
