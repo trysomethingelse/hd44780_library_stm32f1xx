@@ -1,5 +1,7 @@
 # HD44780 library for STM32
 Control HD44780 lcd by STM32F1xx, should work also for other uC.
+![obraz](https://user-images.githubusercontent.com/12532083/180615831-843eef88-5132-4c97-873a-9db40f745951.png)
+
 ## Description
 The files have been created and tested in Atolic TrueStudio. Tested on blue pill with 1602A LCD display. For this moment works only in 4bit mode.
 ### How to use:
@@ -26,7 +28,7 @@ lcd_print_letter('a');
 ```
 Print word:
 ```
-lcd_print("Hello world!");
+lcd_print("  hello,world!");
 ```
 Print integer:
 ```
